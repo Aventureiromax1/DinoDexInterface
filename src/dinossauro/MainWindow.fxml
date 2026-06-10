@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:controller="dinossauro.MainWindowController" prefHeight="700.0" prefWidth="900.0" styleClass="root" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <VBox styleClass="main-frame" alignment="TOP_CENTER" prefHeight="700.0" prefWidth="900.0" spacing="20.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+            <children>
+                <Label styleClass="header-label" text="DinoDex" />
+
+                <TabPane fx:id="tabPane" prefHeight="620.0" prefWidth="860.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <!-- Aba: Listar Dinossauros -->
+                        <Tab text="Inventário">
+                            <AnchorPane>
+                                <VBox spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                    <Label styleClass="h2" text="Inventário de Ativos" />
+                                    <TableView fx:id="tabelaDinossauros" prefHeight="450.0">
+                                        <columns>
+                                            <TableColumn fx:id="colId" prefWidth="50.0" text="ID" />
+                                            <TableColumn fx:id="colNome" prefWidth="150.0" text="Nome" />
+                                            <TableColumn fx:id="colEspecie" prefWidth="150.0" text="Espécie" />
+                                            <TableColumn fx:id="colPeso" prefWidth="100.0" text="Peso (kg)" />
+                                            <TableColumn fx:id="colAltura" prefWidth="100.0" text="Altura (m)" />
+                                            <TableColumn fx:id="colComprimento" prefWidth="120.0" text="Comprimento (m)" />
+                                            <TableColumn fx:id="colComportamento" prefWidth="150.0" text="Comportamento" />
+                                            <TableColumn fx:id="colDataCriacao" prefWidth="150.0" text="Data de Criação" />
+                                        </columns>
+                                    </TableView>
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Button fx:id="btnAtualizarLista" onAction="#handleAtualizarLista" text="Atualizar" />
+                                        <Button fx:id="btnEditarSelecionado" onAction="#handleEditarSelecionado" styleClass="button-secondary" text="Editar" />
+                                        <Button fx:id="btnExcluirSelecionado" onAction="#handleExcluirSelecionadoFromList" styleClass="button-danger" text="Excluir" />
+                                        <Button fx:id="btnReorganizarIds" onAction="#handleReorganizarIds" styleClass="button-secondary" text="Reorganizar IDs" />
+                                    </HBox>
+                                </VBox>
+                            </AnchorPane>
+                        </Tab>
+
+                        <!-- Aba: Cadastrar Dinossauro -->
+                        <Tab text="Cadastrar">
+                            <AnchorPane>
+                                <VBox spacing="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                                    <Label styleClass="h2" text="Cadastrar Novo Ativo" />
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Label minWidth="150.0" text="Nome:" />
+                                        <TextField fx:id="txtNomeCadastro" prefWidth="400.0" promptText="Ex: Tiranossauro Rex" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Label minWidth="150.0" text="Espécie:" />
+                                        <TextField fx:id="txtEspecieCadastro" prefWidth="400.0" promptText="Ex: Tyrannosaurus rex" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Label minWidth="150.0" text="Peso (kg):" />
+                                        <TextField fx:id="txtPesoCadastro" prefWidth="400.0" promptText="Ex: 9000" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Label minWidth="150.0" text="Altura (m):" />
+                                        <TextField fx:id="txtAlturaCadastro" prefWidth="400.0" promptText="Ex: 3.6" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Label minWidth="150.0" text="Comprimento (m):" />
+                                        <TextField fx:id="txtComprimentoCadastro" prefWidth="400.0" promptText="Ex: 12.0" />
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Label minWidth="150.0" text="Comportamento:" />
+                                        <TextField fx:id="txtComportamentoCadastro" prefWidth="400.0" promptText="Ex: Carnívoro" />
+                                    </HBox>
+                                    <HBox spacing="15.0">
+                                        <Button fx:id="btnSalvarCadastro" onAction="#handleSalvarCadastro" text="Salvar" />
+                                        <Button fx:id="btnLimparCadastro" onAction="#handleLimparCadastro" styleClass="button-secondary" text="Limpar" />
+                                    </HBox>
+                                </VBox>
+                            </AnchorPane>
+                        </Tab>
+
+                        <!-- Aba: Editar Dinossauro -->
+                        <Tab text="Editar">
+                            <AnchorPane>
+                                <VBox spacing="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                                    <Label styleClass="h2" text="Editar Ativo" />
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Label minWidth="150.0" text="ID do Ativo:" />
+                                        <TextField fx:id="txtIdEdicao" prefWidth="200.0" promptText="Digite o ID" />
+                                        <Button fx:id="btnBuscarEdicao" onAction="#handleBuscarEdicao" text="Buscar" />
+                                    </HBox>
+                                    <VBox fx:id="editForm" disable="true" spacing="20.0">
+                                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                            <Label minWidth="150.0" text="Nome:" />
+                                            <TextField fx:id="txtNomeEdicao" prefWidth="400.0" />
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                            <Label minWidth="150.0" text="Espécie:" />
+                                            <TextField fx:id="txtEspecieEdicao" prefWidth="400.0" />
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                            <Label minWidth="150.0" text="Peso (kg):" />
+                                            <TextField fx:id="txtPesoEdicao" prefWidth="400.0" />
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                            <Label minWidth="150.0" text="Altura (m):" />
+                                            <TextField fx:id="txtAlturaEdicao" prefWidth="400.0" />
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                            <Label minWidth="150.0" text="Comprimento (m):" />
+                                            <TextField fx:id="txtComprimentoEdicao" prefWidth="400.0" />
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                            <Label minWidth="150.0" text="Comportamento:" />
+                                            <TextField fx:id="txtComportamentoEdicao" prefWidth="400.0" />
+                                        </HBox>
+                                        <HBox spacing="15.0">
+                                            <Button fx:id="btnSalvarAlteracoes" onAction="#handleSalvarAlteracoes" text="Salvar Alterações" />
+                                            <Button fx:id="btnCancelarEdicao" onAction="#handleCancelarEdicao" styleClass="button-secondary" text="Cancelar" />
+                                        </HBox>
+                                    </VBox>
+                                </VBox>
+                            </AnchorPane>
+                        </Tab>
+
+                        <!-- Aba: Excluir Dinossauro -->
+                        <Tab text="Excluir">
+                            <AnchorPane>
+                                <VBox spacing="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+                                    <Label styleClass="h2" text="Excluir Ativo" />
+                                    <Label styleClass="warning-label" text="Atenção: Esta ação é irreversível." />
+                                    <TableView fx:id="tabelaExclusao" prefHeight="300.0">
+                                        <columns>
+                                            <TableColumn fx:id="colIdExc" prefWidth="50.0" text="ID" />
+                                            <TableColumn fx:id="colNomeExc" prefWidth="250.0" text="Nome" />
+                                            <TableColumn fx:id="colEspecieExc" prefWidth="250.0" text="Espécie" />
+                                        </columns>
+                                    </TableView>
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                        <Label minWidth="150.0" text="ID do Ativo:" />
+                                        <TextField fx:id="txtIdExclusao" prefWidth="200.0" promptText="Digite o ID" />
+                                    </HBox>
+                                    <HBox spacing="15.0">
+                                        <Button fx:id="btnExcluirSelecionadoExc" onAction="#handleExcluirSelecionadoFromExclusao" styleClass="button-danger" text="Excluir" />
+                                        <Button fx:id="btnCancelarExclusao" onAction="#handleCancelarExclusao" styleClass="button-secondary" text="Cancelar" />
+                                    </HBox>
+                                </VBox>
+                            </AnchorPane>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
